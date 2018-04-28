@@ -20,6 +20,7 @@
         var guessesRemaining = 5;
         var lettersAlreadyGuessed=[];
         var wins = 0;
+        var losses = 0;
         var alphabetArray = "abcdefghijklmnopqrstuvwxyz"
         var wordArray = ["china", "usa", "canada", "italy", "england", "japan",
             "thailand", "germany", "nicaragua", "mexico", "brazil", "greenland", "russia", "bosnia",
@@ -43,13 +44,20 @@
 
             //First, make sure user pressed a valid letter for input before running block, else do an alert; ignore shift
             if (alphabetArray.includes(userGuess)) {
+                //make sure the guess is not something already guessed, if it is, function returns nothing
+                if(lettersAlreadyGuessed.includes(userGuess)) {
+                    alert("You already guessed that character!")
+                    return;
+                }
                 //check if the userGuess matches one or more of the characters in the wordToGuess
                 for (var i = 0; i < wordToGuess.length; i++) {
                     if (wordToGuess[i] === userGuess) {
                         wordLines[i] = userGuess;
                         document.querySelector("#hangManGuesses").innerHTML = wordLines.join(" ");
                     } else {
+                        //remaining guesses go down by 1 every time incorrect letter is guessed
                         guessesRemaining--;
+                        break;
                     }
                 }
                 lettersAlreadyGuessed.push(userGuess);
@@ -60,12 +68,15 @@
                 alert("Please enter a valid letter");
             }
 
-            var html =
+            var headerText =
                 "<p>You chose the letter " + userGuess + "<./p>" +
                 "<p>You have " + guessesRemaining + " remaining. </p>" +
-                "<p>You have guessed the following letters: " + lettersAlreadyGuessed + ".</p>"
+                "<p>You have guessed the following letters: " + lettersAlreadyGuessed + ".</p>" +
+                "<p>Wins: " + wins + "</p>" +
+                "<p>Wins: " + losses + "</p>"
 
-
+            // document.getElementById("#hangMan").innerHTML = html;    
+            document.querySelector("#hangMan").innerHTML = headerText;
         }
 
     </script>
