@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="assets/css/reset.css" <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css"> 
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    
     <title>Hang Man: The Mad and Horrible</title>
+
 </head>
 
 <body>
@@ -15,71 +18,6 @@
     </div>
     <div id="hangManGuesses"></div>
 
-    <script type="text/javascript">
-
-        var guessesRemaining = 5;
-        var lettersAlreadyGuessed=[];
-        var wins = 0;
-        var losses = 0;
-        var alphabetArray = "abcdefghijklmnopqrstuvwxyz"
-        var wordArray = ["china", "usa", "canada", "italy", "england", "japan",
-            "thailand", "germany", "nicaragua", "mexico", "brazil", "greenland", "russia", "bosnia",
-            "india", "korea", "egypt", "mongolia", "chile", "france"]
-        var wordLines = [];
-
-        var wordToGuess = wordArray[Math.floor(Math.random() * wordArray.length)];
-
-        for (var i = 0; i < wordToGuess.length; i++) {
-            wordLines.push(" _ ");
-        }
-
-        //adds the underscores into the hangManGuesses div, gets rid of the comma separator by specifying with .join
-        document.querySelector("#hangManGuesses").innerHTML = wordLines.join(" ");
-
-        document.onkeyup = function (guess) {
-
-            //Determines what key is pressed
-            var userGuess = guess.key.toLowerCase();
-
-
-            //First, make sure user pressed a valid letter for input before running block, else do an alert; ignore shift
-            if (alphabetArray.includes(userGuess)) {
-                //make sure the guess is not something already guessed, if it is, function returns nothing
-                if(lettersAlreadyGuessed.includes(userGuess)) {
-                    alert("You already guessed that character!")
-                    return;
-                }
-                //check if the userGuess matches one or more of the characters in the wordToGuess
-                for (var i = 0; i < wordToGuess.length; i++) {
-                    if (wordToGuess[i] === userGuess) {
-                        wordLines[i] = userGuess;
-                        document.querySelector("#hangManGuesses").innerHTML = wordLines.join(" ");
-                    } else {
-                        //remaining guesses go down by 1 every time incorrect letter is guessed
-                        guessesRemaining--;
-                        break;
-                    }
-                }
-                lettersAlreadyGuessed.push(userGuess);
-
-            } else if (guess.keyCode == "16") {
-                //DO NOTHING
-            } else {
-                alert("Please enter a valid letter");
-            }
-
-            var headerText =
-                "<p>You chose the letter " + userGuess + "<./p>" +
-                "<p>You have " + guessesRemaining + " remaining. </p>" +
-                "<p>You have guessed the following letters: " + lettersAlreadyGuessed + ".</p>" +
-                "<p>Wins: " + wins + "</p>" +
-                "<p>Wins: " + losses + "</p>"
-
-            // document.getElementById("#hangMan").innerHTML = html;    
-            document.querySelector("#hangMan").innerHTML = headerText;
-        }
-
-    </script>
 </body>
-
+<script src="assets/javascript/game.js"></script>
 </html>
