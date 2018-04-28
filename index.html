@@ -18,7 +18,7 @@
     <script type="text/javascript">
 
         var guessesRemaining = 5;
-        var lettersAlreadyGuessed;
+        var lettersAlreadyGuessed=[];
         var wins = 0;
         var alphabetArray = "abcdefghijklmnopqrstuvwxyz"
         var wordArray = ["china", "usa", "canada", "italy", "england", "japan",
@@ -38,18 +38,21 @@
         document.onkeyup = function (guess) {
 
             //Determines what key is pressed
-            var userGuess = guess.key;
+            var userGuess = guess.key.toLowerCase();
 
 
             //First, make sure user pressed a valid letter for input before running block, else do an alert; ignore shift
-            if (alphabetArray.includes(userGuess.toLowerCase())) {
+            if (alphabetArray.includes(userGuess)) {
                 //check if the userGuess matches one or more of the characters in the wordToGuess
                 for (var i = 0; i < wordToGuess.length; i++) {
                     if (wordToGuess[i] === userGuess) {
                         wordLines[i] = userGuess;
                         document.querySelector("#hangManGuesses").innerHTML = wordLines.join(" ");
+                    } else {
+                        guessesRemaining--;
                     }
                 }
+                lettersAlreadyGuessed.push(userGuess);
 
             } else if (guess.keyCode == "16") {
                 //DO NOTHING
